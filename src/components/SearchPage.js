@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class SearchPage extends React.Component {
   render() {
@@ -20,6 +21,12 @@ class SearchPage extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         )}
+        <Link
+          data-testid="shopping-cart-button"
+          to="/shoppingcart"
+        >
+          Carrinho de Compras
+        </Link>
       </div>
     );
   }

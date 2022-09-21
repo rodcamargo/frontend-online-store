@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SearchPage from './components/SearchPage';
+import ShoppingCart from './components/ShoppingCart';
 
 class App extends React.Component {
   state = {
@@ -19,13 +20,13 @@ class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route
-              exact
-              path="/"
+              exact path="/"
               render={ () => (<SearchPage
                 inputSearch={ inputSearch }
                 onChange={ this.handleChange }
               />) }
             />
+            <ShoppingCart />
           </Switch>
         </BrowserRouter>
       </div>
