@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class SearchList extends React.Component {
   render() {
@@ -32,14 +33,20 @@ class SearchList extends React.Component {
         )}
         { searchedItems.length !== 0 ? (
           searchedItems.map((item) => (
-            <div data-testid="product" key={ item.id }>
-              <p>{`Produto: ${item.title}`}</p>
-              <img
-                src={ item.thumbnail }
-                alt={ `imagem de um ${item.title}` }
-              />
-              <p>{item.price}</p>
-            </div>
+            <Link
+              to={ `/product/${item.id}` }
+              key={ item.id }
+              data-testid="product-detail-link"
+            >
+              <div data-testid="product">
+                <p>{`Produto: ${item.title}`}</p>
+                <img
+                  src={ item.thumbnail }
+                  alt={ `imagem de um ${item.title}` }
+                />
+                <p>{item.price}</p>
+              </div>
+            </Link>
           ))
         ) : (<p>Nenhum produto foi encontrado</p>) }
       </div>
