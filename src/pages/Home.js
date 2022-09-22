@@ -10,6 +10,7 @@ class Home extends React.Component {
     searchedItems: [],
     categories: [],
     categoryId: null,
+    shoppingCart: [],
   };
 
   componentDidMount() {
@@ -42,8 +43,17 @@ class Home extends React.Component {
     this.resquestCategoriesAndQuery();
   }
 
+  addToCart = ({ id }) => {
+    const { shoppingCart } = this.state;
+    const shoppingList = [...shoppingCart, id];
+    this.setState(() => ({
+      shoppingCart: shoppingList,
+    }));
+    localStorage.setItem('items', JSON.stringify(shoppingList));
+  }
+
   render() {
-    const { categories, inputSearch, searchedItems } = this.state;
+    const { categories, inputSearch, searchedItems, shoppingCart } = this.state;
     return (
       <div>
         <aside>
@@ -61,6 +71,8 @@ class Home extends React.Component {
           searchedItems={ searchedItems }
           onInputChange={ this.onInputChange }
           searchProducts={ this.resquestCategoriesAndQuery }
+          shoppingCart={ shoppingCart }
+          addToCart={ this.addToCart }
         />
       </div>
     );

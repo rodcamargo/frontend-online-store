@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 class SearchList extends React.Component {
   render() {
-    const { inputSearch, searchedItems, onInputChange, searchProducts } = this.props;
+    const { inputSearch, searchedItems, onInputChange, searchProducts,
+      addToCart } = this.props;
 
     return (
       <div>
@@ -32,21 +33,29 @@ class SearchList extends React.Component {
           </p>
         )}
         { searchedItems.length !== 0 ? (
-          searchedItems.map((item) => (
-            <Link
-              to={ `/product/${item.id}` }
-              key={ item.id }
-              data-testid="product-detail-link"
-            >
-              <div data-testid="product">
-                <p>{`Produto: ${item.title}`}</p>
-                <img
-                  src={ item.thumbnail }
-                  alt={ `imagem de um ${item.title}` }
-                />
-                <p>{item.price}</p>
-              </div>
-            </Link>
+          searchedItems.map(({ id, title, thumbnail, price }) => (
+            <div key={ id }>
+              <Link
+                to={ `/product/${id}` }
+                data-testid="product-detail-link"
+              >
+                <div data-testid="product">
+                  <p>{`Produto: ${title}`}</p>
+                  <img
+                    src={ thumbnail }
+                    alt={ `imagem de um ${title}` }
+                  />
+                  <p>{price}</p>
+                </div>
+              </Link>
+              <button
+                data-testid="product-add-to-cart"
+                type="button"
+                onClick={ () => (addToCart({ id })) }
+              >
+                Adicione ao Carrinho
+              </button>
+            </div>
           ))
         ) : (<p>Nenhum produto foi encontrado</p>) }
       </div>
@@ -64,6 +73,7 @@ SearchList.propTypes = {
   })).isRequired,
   onInputChange: propTypes.func.isRequired,
   searchProducts: propTypes.func.isRequired,
+  addToCart: propTypes.func.isRequired,
 };
 
 export default SearchList;
